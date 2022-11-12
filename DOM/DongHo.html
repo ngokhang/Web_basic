@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="clock"></div>
+</body>
+
+<script>
+    let clockElement = document.querySelector('.clock');
+    let textTime = document.createElement('h1');
+    clockElement.appendChild(textTime);
+
+    function formatTime() {
+        let time = new Date();
+        let hours = time.getHours() < 10 ? `0${time.getHours()}` : time.getHours();
+        hours = hours.toString();
+        let minutes = time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes();
+        minutes = minutes.toString();
+        let seconds = time.getSeconds() < 10 ? `0${time.getSeconds()}` : time.getSeconds();
+        seconds = seconds.toString();
+        // console.log(`${hours} : ${minutes} : ${seconds}`);
+        textTime.innerText = `${hours} : ${minutes} : ${seconds}`;
+    }
+
+    setInterval(() => {
+        formatTime()
+    }, 1000);
+
+    
+</script>
+</html>

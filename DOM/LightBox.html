@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+        img {
+            width: 100%;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box {
+            width: 500px;
+            height: 100px;
+            background-color: red;
+            display: flex;
+            align-items: center;
+        }  
+        .box > img {
+            cursor: pointer;
+        }
+        .mask {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .mask > img {
+            width: 700px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box">
+            <img src="https://d1hjkbq40fs2x4.cloudfront.net/2016-01-31/files/1045-1.jpg" alt="">
+        </div>
+    </div>
+    <div class="mask"></div>
+
+</body>
+<script>
+    let URLs = [
+        'https://d1hjkbq40fs2x4.cloudfront.net/2016-01-31/files/1045-1.jpg',
+        'https://www.cathaypacific.com/content/dam/destinations/paris/cityguide-gallery/paris-basilique-du-sacre-coeur-920x500.jpg',
+        'https://www.cathaypacific.com/content/dam/destinations/paris/cityguide-gallery/paris-cityscape-920x500.jpg',
+    ];
+    let liveBoxImg = document.querySelector('.box img');
+    let maskElement = document.querySelector('.mask');
+    let maskImgElement = document.querySelector('.mask > img');
+    let index = 0;
+
+    const interval = setInterval(() => {
+        index++;
+        if (index === 3) index = 0;
+        liveBoxImg.setAttribute('src', URLs[index]);
+    }, 2000);
+    
+    liveBoxImg.addEventListener('click', e => {
+        e.stopPropagation();
+        let num = index;
+        let imgSelected = document.createElement('img');
+        imgSelected.setAttribute('src', URLs[num]);
+        maskElement.appendChild(imgSelected);
+        maskElement.style.display = 'flex';
+    });
+
+    maskElement.addEventListener('click', e => {
+        e.stopPropagation();
+        let maskImgElement = document.querySelector('.mask img');
+        maskElement.style.display = 'none';
+        maskElement.removeChild(maskImgElement);
+    });
+
+
+</script>
+</html>

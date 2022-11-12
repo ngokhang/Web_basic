@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            display: flex;
+            width: 500px;
+            gap: 0 50px;
+        }
+        .left {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 40%;
+            gap: 10px 0px;
+        }
+
+        .right {
+            display: flex;
+            flex-basis: 60%;
+            height: 200px;
+            background-color: gray;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="left">
+            <label for="a">A: </label>
+            <input type="text" name="a" id="a">
+            <label for="b">B: </label>
+            <input type="text" name="b" id="b">
+            <button class="solveBtn">Solve</button>
+        </div>
+        <div class="right">
+        </div>
+    </div>
+    <script>
+        const inputA = document.getElementById('a');
+        const inputB = document.getElementById('b');
+        const solveBtn = document.getElementsByClassName('solveBtn')[0];
+        let rightScreen = document.getElementsByClassName('right')[0];
+
+        function solve(a, b) {
+            if (a === 0 && b === 0) {
+                return `<div>
+                            <p>${a}x + ${b} = 0</p>
+                            <p>INF</p>
+                        </div>`;
+            } else if (a === 0 && b !== 0) {
+                return `<div>
+                            <p>${a}x + ${b} = 0</p>
+                            <p>ERR</p>
+                        </div>`;
+            } else {
+                return `<div>
+                            <p>${a}x + ${b} = 0</p>
+                            <p>${-b/a}</p>
+                        </div>`;
+            }
+        }
+
+        solveBtn.addEventListener('click', e => {
+            let valueA = parseFloat(inputA.value);
+            let valueB = parseFloat(inputB.value);
+
+            let result = solve(valueA, valueB);
+            rightScreen.innerHTML = result;
+        })
+    </script>
+</body>
+</html>

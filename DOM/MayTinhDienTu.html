@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Basic Online</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        #app {
+            display: flex;
+            flex-direction: column;
+            gap: 10px 0px;
+            width: 500px;
+            padding: 5px;
+            border: 10px solid gray;
+            border-radius: 10px;
+        }
+        .screen {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 100px;
+            padding: 1px 5px;
+            border: 5px solid black;
+            border-radius: 10px;
+            font-size: 26px;
+        }
+
+        .screen > p {
+            font-size: 26px;
+            line-height: 1.25;
+            color: black;
+        }
+
+        .keys {
+            display: flex;
+            gap: 5px 5px;
+            width: 350px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            width: 75px;
+            font-size: 16px;
+            padding: 5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="screen">
+            <p>Calc something...</p>
+        </div>
+        <div class="keys">
+            <button value="1">1</button>
+            <button value="2">2</button>
+            <button value="3">3</button>
+            <button value="+">+</button>
+
+            <button value="4">4</button>
+            <button value="5">5</button>
+            <button value="6">6</button>
+            <button value="-">-</button>
+
+            <button value="7">7</button>
+            <button value="8">8</button>
+            <button value="9">9</button>
+            <button value="*">*</button>
+
+            <button value="C" class="resetBtn">C</button>
+            <button value="0">0</button>
+            <button class="equalBtn">=</button>
+            <button value="/">/</button>
+        </div>
+    </div>
+</body>
+    <script>
+        const buttons = document.querySelectorAll('button');
+        const equalBtn = document.querySelector('.equalBtn');
+        const resetBtn = document.querySelector('.resetBtn');
+        let screen = document.querySelector('.screen');
+        let expression = '';
+        let result = '';
+        let ans = 0;
+
+
+        buttons.forEach(button => {
+            button.addEventListener('click', e => {
+                e.stopPropagation();
+                expression += button.value;
+                result = `<p class="expression">${expression}</p>`
+                screen.innerHTML = result;
+            })
+        });
+
+        equalBtn.addEventListener('click', e => {
+            let childOfScreen = document.querySelector('.screen > .expression');
+            screen.removeChild(childOfScreen);
+            ans = eval(expression);
+            result = `<p class="result">${ans}</p>`;
+            screen.innerHTML = result;
+            expression = ans;
+        });
+
+        resetBtn.addEventListener('click', e => {
+            let childOfScreen = document.querySelector('.screen > p');
+            result = `<p class="welcome">Calc something...</p>`
+            e.stopPropagation();
+            expression = '';
+            screen.removeChild(childOfScreen);
+            screen.innerHTML = result;
+        })
+    </script>
+</html>
